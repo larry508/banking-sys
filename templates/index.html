@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+      <table>
+         <thead>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
+            <th>Sex</th>
+            <th>Birth Date</th>
+            <th>Address ID </th>
+            <th>Contact ID </th>
+            <th>User ID</th>
+            <th>#</th>
+         </thead>
+         {% for data in context.customers %}
+         <tbody>
+            <td>{{data.customer_id}}</td>
+            <td>{{data.first_name}}</td>
+            <td>{{data.middle_name}}</td>
+            <td>{{data.last_name}}</td>
+            <td>{{data.sex}}</td>
+            <td>{{data.birth_date}}</td>
+            <td>{{data.address_id}}</td>
+            <td>{{data.contact_id}}</td>
+            <td>{{data.user_id}}</td>
+            <td><a href="/delete/{{data.id}}" type="button">Delete</a></td>
+         </tbody>
+         {% endfor%}
+      </table>
+   </body>
+</html>
+{% endblock content %}
