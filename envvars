@@ -1,6 +1,0 @@
-export MSSQL_USERNAME="sa"
-export MSSQL_PASSWORD="ksn3Skwn2"
-export MSSQL_HOST="localhost"
-export MSSQL_DATABASE="SimpleBankingSystem"
-export MSSQL_CONSTR="mssql+pymssql://%s:%s@%s/%s"
-export AUTH_SECRET_KEY="Yo7ca-wkpmBdn6GGo2DhyNDPBYiDLwfHlXCy8VsaNnY="
