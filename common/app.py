@@ -7,6 +7,9 @@ from config import FLASK_SECRET_KEY
 db = SQLAlchemy()
 
 
+def get_db():
+    return db
+
 def create_app(db_uri: str):
     app = Flask(__name__, template_folder='../templates', static_folder="../static")
     app.debug = True

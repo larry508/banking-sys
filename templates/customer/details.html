@@ -1,0 +1,119 @@
+{% extends 'base/base.html' %}
+ 
+{% block content %}
+ 
+<form action="/customer/details" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <div class="row justify-content-center">
+        <h3 class="title">Personal information</h3>
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First name</label>
+                <input type="text" name="firstName" class="form-control" id="firstName" value="{{ prefill.first_name }}" required>
+            </div>
+ 
+            <div class="mb-3">
+                <label for="middleName" class="form-label">Middle name</label>
+                <input type="text" name="middleName" class="form-control" id="middleName" value="{{ prefill.middle_name }}">
+            </div>
+ 
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last name</label>
+                <input type="text" name="lastName" class="form-control" id="lastName" required value="{{ prefill.last_name }}">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select class="form-select" id="gender" name="gender">
+                    {% if prefill.gender %}
+                        {% if prefill.gender == 'M'%}
+                            <option selected>Gender</option>
+                            <option value="M" selected>Male</option>
+                            <option value="F">Female</option>
+                        {% else %}
+                            <option>Gender</option>
+                            <option value="M" selected>Male</option>
+                            <option value="F" selected>Female</option>
+                        {% endif %}
+                    {% else %}
+                    <option selected>Gender</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                    {% endif %}
+                </select>
+            </div>
+ 
+            <div class="col mb-3">
+                <label for="birthdate" class="form-label">Birth date</label>
+                <input type="date" name="birthdate" class="form-control" id="birthdate" required value="{{ prefill.birth_date }}">
+            </div>
+        </div>
+    </div>
+ 
+ 
+    <div class="row justify-content-center">
+        <h3 class="title">Address</h3>
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="countryCode" class="form-label">Country</label>
+                <input type="text" name="countryCode" class="form-control" id="countryCode" required value="{{ prefill.country_code }}">
+            </div>
+ 
+            <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <input type="text" name="city" class="form-control" id="city" required value="{{ prefill.city }}">
+            </div>
+ 
+            <div class="mb-3">
+                <label for="zipCode" class="form-label">Zip code</label>
+                <input type="text" name="zipCode" class="form-control" id="zipCode" required value="{{ prefill.zip_code }}">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="streetName" class="form-label">Street name</label>
+                <input type="text" name="streetName" class="form-control" id="streetName" required value="{{ prefill.street_name }}">
+            </div>
+ 
+            <div class="mb-3">
+                <label for="streetNumber" class="form-label">Street number</label>
+                <input type="text" name="streetNumber" class="form-control" id="streetNumber" required value="{{ prefill.street_number }}">
+            </div>
+ 
+            <div class="mb-3">
+                <label for="apartmentNumber" class="form-label">Apartment number</label>
+                <input type="text" name="apartmentNumber" class="form-control" id="apartmentNumber"
+                    placeholder='Optional' value="{{ prefill.apartment_number }}">
+            </div>
+        </div>
+    </div>
+ 
+    <div class="row justify-content-center">
+        <h3 class="title">Contact</h3>
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" id="email" value="{{ prefill.email }}">
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone number</label>
+                <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" required value="{{ prefill.phone_number }}">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+ 
+</form>
+ <div class="row justify-content-center">
+     <div class="col-8 text-center">
+
+         </div>
+     </div>
+{% endblock content %}

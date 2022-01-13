@@ -5,3 +5,9 @@ ERRORS = {
     'USERNAME_TAKEN': "User with given username already exists.",
     'EMAIL_TAKEN': "User with given email already exists."
 }
+
+
+MESSAGES = {
+    'FILL_CUSTOMER_INFORMATION': "Please fill in the form below.",
+    'PROFILE_UPDATED': "Your information has been updated."
+}

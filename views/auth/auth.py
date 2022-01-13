@@ -27,14 +27,14 @@ def login():
             errors.append(ERRORS['LOGIN_FAILURE'])
 
         if errors:
-            return render_template('login.html', context=get_default_context(), errors=errors)
+            return render_template('auth/login.html', context=get_default_context(), errors=errors)
 
         response = make_response(redirect('/'))
         response.set_cookie('auth', generate_auth_token(username, hash_sha256(password)))
         return response
 
     if request.method == 'GET':
-        return render_template('login.html', context=get_default_context())
+        return render_template('auth/login.html', context=get_default_context())
 
 
 @blueprint.route('/logout', methods=['POST'])
@@ -55,14 +55,14 @@ def register():
         if form['password'] != form['password-again']:
             errors.append(ERRORS['PASSWORD_MISMATCH'])
 
-        if db_user.findByUsername(form['username']):
+        if db_user.find_by_username(form['username']):
             errors.append(ERRORS['USERNAME_TAKEN'])
 
-        if db_user.findByEmail(form['email']):
+        if db_user.find_by_user(form['email']):
             errors.append(ERRORS['EMAIL_TAKEN'])
 
         if errors:
-            return render_template('register.html', context=get_default_context(), errors=errors)
+            return render_template('auth/register.html', context=get_default_context(), errors=errors)
 
         user = User(
             user_type='CUSTOMER',
@@ -76,14 +76,14 @@ def register():
     if request.method == 'GET':
         if is_authenticated():
             return redirect('/')
-        return render_template('register.html', context=get_default_context())
+        return render_template('auth/register.html', context=get_default_context())
 
 
 
 @blueprint.route('/register/details', methods=['POST', 'GET'])
 def complete_registration():
     if request.method == 'GET':
-        return render_template('register_details.html', context=get_default_context())
+        return render_template('auth/register_details.html', context=get_default_context())
     
     if request.method == 'POST':
         pass

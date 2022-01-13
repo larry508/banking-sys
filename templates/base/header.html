@@ -15,6 +15,7 @@
             
             {% if context.is_authenticated %}
             <form action="/auth/logout" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <button name="logout-button" value="logout" type="submit" class="btn btn-outline-primary me-2">Logout</button>
             </form>
             {% endif %}

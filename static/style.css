@@ -1,3 +1,7 @@
 body {
     background-color: rgb(231, 231, 255);
 }
+
+.title {
+    text-align: center;
+}

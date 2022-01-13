@@ -30,21 +30,19 @@ def index():
 @blueprint.route('/index/customer')
 @login_required
 def home_customer():
-    registered = True
     if not registration_completed(get_current_user()):
-        registered = False
+        return redirect('/customer/details')
     context = get_default_context()
-    context['customers'] = customer.findAll()
-    return render_template('customer_index.html', context=context, registered=registered)
+    context['customers'] = customer.find_all()
+    return render_template('customer/customer_index.html', context=context)
 
 
 
 @blueprint.route('/index/admin')
 @admin_view
 def home_admin():
-    registered = True
     if not registration_completed(get_current_user()):
-        registered = False
+        return redirect('/customer/details')
     context = get_default_context()
-    context['customers'] = customer.findAll()
-    return render_template('customer_index.html', context=context, registered=registered)
+    context['customers'] = customer.find_all()
+    return render_template('customer/customer_index.html', context=context)
