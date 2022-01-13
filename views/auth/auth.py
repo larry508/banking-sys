@@ -78,3 +78,12 @@ def register():
             return redirect('/')
         return render_template('register.html', context=get_default_context())
 
+
+
+@blueprint.route('/register/details', methods=['POST', 'GET'])
+def complete_registration():
+    if request.method == 'GET':
+        return render_template('register_details.html', context=get_default_context())
+    
+    if request.method == 'POST':
+        pass
