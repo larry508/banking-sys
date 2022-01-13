@@ -1,7 +1,7 @@
 
 
 from common.models import Contact
-from common.service import db
+from common.app import db
 
 
 def create(contact: Contact):

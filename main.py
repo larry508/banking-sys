@@ -6,7 +6,7 @@ from flask import Flask
 from flask_migrate import Migrate, migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from common.service import create_app
+from common.app import create_app
 from config import DB_URI
 from views import auth_blueprint, index_blueprint
 

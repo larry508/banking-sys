@@ -1,5 +1,5 @@
 from common.models import Address
-from common.service import db
+from common.app import db
 
 
 def create(address: Address):

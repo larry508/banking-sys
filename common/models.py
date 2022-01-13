@@ -1,13 +1,7 @@
-
-
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from common.service import db
-
-
-
+from common.app import db
 
 class Customer(db.Model):
     __tablename__ = 'Customers'

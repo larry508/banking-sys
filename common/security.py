@@ -74,6 +74,7 @@ def login_required(f):
         if not is_authenticated():
             return redirect('/auth/login')
         return f(*args, **kwargs)
+    inner.__name__ = f.__name__
     return inner
 
 def admin_view(f):

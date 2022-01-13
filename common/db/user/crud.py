@@ -1,7 +1,7 @@
 
 
 from common.models import User
-from common.service import db
+from common.app import db
 
 
 def create(user: User):
