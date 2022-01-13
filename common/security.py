@@ -52,7 +52,6 @@ def get_current_user() -> User:
     username, password_hash = get_user_from_token(auth_token)
     return db_user.findByUsername(username)
 
-
 def is_authenticated() -> bool:
     auth_token = request.cookies.get('auth')
     if not auth_token:
