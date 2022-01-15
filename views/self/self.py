@@ -51,13 +51,14 @@ def details():
                 birth_date = form['birthdate'],
                 user_id = user.user_id
             )
-            db_customer.create(customer)
+            customer = db_customer.create(customer)
 
         address: Address = db_address.find_by_user(user)
         if address:
             update_address_from_form(db, address, form)
         else:
             address = Address(
+                customer_id = customer.customer_id,
                 country_code = form['countryCode'],
                 city = form['city'],
                 zip_code = form['zipCode'],
@@ -66,7 +67,6 @@ def details():
                 apartment_number = form['apartmentNumber']
             )
             address: Address = db_address.create(address)
-            db_customer.update_address_id(customer, address.address_id)
 
 
         contact: Contact = db_contact.find_by_user(user)
@@ -74,11 +74,11 @@ def details():
             update_contact_from_form(db, contact, form)
         else:
             contact = Contact(
+                customer_id = customer.customer_id,
                 email = form['email'],
                 phone_number = form['phoneNumber']
             )
             db_contact.create(contact)
-            db_customer.update_contact_id(customer, contact.contact_id)
 
         messages.append(MESSAGES['PROFILE_UPDATED'])
 

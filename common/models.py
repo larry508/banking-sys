@@ -12,12 +12,10 @@ class Customer(db.Model):
     last_name = Column("LastName", String(35), nullable=False)
     sex = Column("Sex", String(1), nullable=False)
     birth_date = Column("BirthDate", Date, nullable=False)
-    address_id = Column("AddressID", Integer, ForeignKey("Addresses.AddressID"), nullable=True)
-    contact_id = Column("ContactID", Integer, ForeignKey("Contacts.ContactID"), nullable=True)
-    user_id = Column("UserID", Integer, ForeignKey("Users.UserID"), nullable=True)
+    user_id = Column("UserID", Integer, ForeignKey("Users.UserID"), nullable=False)
 
-    address = relationship("Address", back_populates="customer")
-    contact = relationship("Contact", back_populates="customer")
+    address = relationship("Address", back_populates="customer", uselist=False)
+    contact = relationship("Contact", back_populates="customer", uselist=False)
     user = relationship("User", back_populates="customer")
 
     def __repr__(self):
@@ -26,8 +24,7 @@ class Customer(db.Model):
 
 class Address(db.Model):
     __tablename__ = 'Addresses'
-
-    address_id = Column("AddressID", Integer, primary_key=True, autoincrement=True)
+    customer_id = Column("CustomerID", Integer, ForeignKey("Customers.CustomerID"), primary_key=True, nullable=False)
     country_code = Column("CountryCode", String(3), nullable=False)
     city = Column("City", String(50), nullable=False)
     zip_code = Column("ZipCode", String(9), nullable=False)
@@ -35,17 +32,17 @@ class Address(db.Model):
     street_number = Column("StreetNumber", String(10), nullable=False)
     apartment_number = Column("ApartmentNumber", String(10))
 
-    customer = relationship("Customer", back_populates="address", uselist=False)
+    customer = relationship("Customer", back_populates="address")
 
 
 class Contact(db.Model):
     __tablename__ = 'Contacts'
 
-    contact_id = Column("ContactID", Integer, primary_key=True, autoincrement=True)
+    customer_id = Column("CustomerID", Integer, ForeignKey("Customers.CustomerID"), primary_key=True, nullable=False)
     email = Column("Email", String(255))
     phone_number = Column("PhoneNumber", String(15))
 
-    customer = relationship("Customer", back_populates="contact", uselist=False)
+    customer = relationship("Customer", back_populates="contact")
 
 
 
