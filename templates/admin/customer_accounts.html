@@ -11,7 +11,8 @@
         <table class="table">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">ID</th>
+                <th scope="col">Customer ID</th>
+                <th scope="col">Account ID</th>
                 <th scope="col">First name</th>
                 <th scope="col">Last name</th>
                 <th scope="col">Account type</th>
@@ -25,13 +26,23 @@
                 {% for account in accounts %}
                 <tr>
                     <th scope="row"> {{ account.customer_id }}</th>
+                    <td>{{ account.account_id }}</td>
                     <td>{{ account.first_name }}</td>
                     <td>{{ account.last_name }}</td>
                     <td>{{ account.account_type }}</td>
                     <td>{{ account.account_number }}</td>
                     <td>{{ account.balance }}</td>
                     <td>{{ account.opened_date }}</td>
-
+                    <td>
+                        <form action="/admin/accounts/delete/{{ account.account_id }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <button type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                </svg>
+                            </button>
+                        </form> 
+                    </td>   
                 </tr>
                 {% endfor %}
 

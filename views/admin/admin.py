@@ -1,11 +1,12 @@
 
 from flask import Blueprint, redirect, render_template, request
 
-from common.app import db
+from common.db import account as db_account
 from common.db import customer as db_customer
-from common.db import user as db_user
-from common.db import customer_details as db_customer_details
 from common.db import customer_account as db_customer_account
+from common.db import customer_details as db_customer_details
+from common.db import user as db_user
+
 from common.security import admin_view
 from utils.default_context import get_default_context
 
@@ -52,3 +53,11 @@ def delete_user_by_id(id: str):
     if request.method == 'POST':
         db_customer.delete_by_id(id)
         return redirect('/admin/customers') # in future - just reload previous page
+
+
+@blueprint.route('/accounts/delete/<id>', methods=['POST'])
+@admin_view
+def delete_account(id: str):
+    if request.method == 'POST':
+        db_account.delete_by_id(id)
+        return redirect('/admin/accounts') # in future - just reload previous page

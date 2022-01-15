@@ -26,7 +26,8 @@ class CustomerDetails(db.Model):
 class CustomerAccount(db.Model):
     __tablename__ = 'CustomerAccounts'
 
-    customer_id = Column("CustomerID", Integer, primary_key=True)
+    customer_id = Column("CustomerID", Integer)
+    account_id = Column("AccountID", Integer, primary_key=True)
     first_name = Column("FirstName", String(35), nullable=False)
     last_name = Column("LastName", String(35), nullable=False)
     account_type = Column("AccountType", String(3), nullable=False)
