@@ -28,7 +28,7 @@ def generate_customers(app):
             username = fake.user_name()
             email = fake.email()
             password_hash = sha256(fake.password().encode('utf-8')).hexdigest()
-            register_date = fake.date_between(date(2010, 1, 1), date(2022, 1, 7))
+            register_date = fake.date_between(date(2010, 1, 1), datetime.now().date())
             last_login = fake.date_between(register_date, date(2022, 1, 7))
 
             contact_email = fake.email()
@@ -128,7 +128,7 @@ def generate_accounts(app):
             account_type = 'YNG' if datetime.now() - datetime(customer.birth_date.year, customer.birth_date.month, customer.birth_date.day) < timedelta(weeks=864) else account_types_dict[random.randint(0, 1)]
             account_number = "".join(random.choice(string.digits) for _ in range(26))
             balance = float(random.randint(0,10000))
-            opened_date = fake.date_between(User.query.filter_by(user_id=customer.user_id).first().registration_date, date(2022, 1, 7))
+            opened_date = fake.date_between(User.query.filter_by(user_id=customer.user_id).first().registration_date, datetime.now().date())
 
             account = Account(
                 customer_id=customer_id,
