@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <h1 class='title'>
+        ACCOUNTS
+    </h1>
+    <div class="col-10">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Account type</th>
+                <th scope="col">Account number</th>
+                <th scope="col">Balance</th>
+                <th scope="col">Opened date</th>
+
+            </tr>
+            </thead>
+            <tbody>
+                {% for account in accounts %}
+                <tr>
+                    <th scope="row"> {{ account.customer_id }}</th>
+                    <td>{{ account.first_name }}</td>
+                    <td>{{ account.last_name }}</td>
+                    <td>{{ account.account_type }}</td>
+                    <td>{{ account.account_number }}</td>
+                    <td>{{ account.balance }}</td>
+                    <td>{{ account.opened_date }}</td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
