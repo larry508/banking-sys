@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <h1 class='title'>
+        CUSTOMER DETAILS
+    </h1>
+    <div class="col-10">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Country code</th>
+                <th scope="col">City</th>
+                <th scope="col">Zip code</th>
+                <th scope="col">Street name</th>
+                <th scope="col">Street number</th>
+                <th scope="col">Apartment number</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone number</th>
+
+            </tr>
+            </thead>
+            <tbody>
+                {% for details in customer_details %}
+                <tr>
+                    <th scope="row"> {{ details.customer_id }}</th>
+                    <td>{{ details.first_name }}</td>
+                    <td>{{ details.last_name }}</td>
+                    <td>{{ details.country_code }}</td>
+                    <td>{{ details.city }}</td>
+                    <td>{{ details.zip_code }}</td>
+                    <td>{{ details.street_name }}</td>
+                    <td>{{ details.street_number }}</td>
+                    <td>{{ details.apartment_number }}</td>
+                    <td>{{ details.email }}</td>
+                    <td>{{ details.phone_number }}</td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

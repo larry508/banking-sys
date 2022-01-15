@@ -19,7 +19,7 @@ class Customer(db.Model):
     user = relationship("User", back_populates="customer")
 
     def __repr__(self):
-        return f"Customer: <customer_id: {self.customer_id}. first_name: {self.first_name}, last_name: {self.last_name}, sex: {self.sex}, birth_date: {self.birth_date}, address_id: {self.address_id}, contact_id: {self.contact_id}, user_id: {self.user_id}>"
+        return f"Customer: <customer_id: {self.customer_id}, first_name: {self.first_name}, last_name: {self.last_name}, sex: {self.sex}, birth_date: {self.birth_date}, address_id: {self.address_id}, contact_id: {self.contact_id}, user_id: {self.user_id}>"
 
 
 class Address(db.Model):

@@ -12,13 +12,6 @@ from views.index.utils import registration_completed
 blueprint = Blueprint('index', __name__)
 
 
-# @blueprint.route('/')
-# @login_required
-# def index():
-#     context = get_default_context()
-#     context['customers'] = customer.findAll()
-#     return render_template('index.html', context=context)
-
 @blueprint.route('/')
 @login_required
 def index():
