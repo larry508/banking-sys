@@ -33,3 +33,9 @@ def all_users():
         return render_template('admin/users.html', context=get_default_context(), users=users)
 
 
+@blueprint.route('/customers/delete/<id>', methods=['POST'])
+@admin_view
+def delete_user_by_id(id: str):
+    if request.method == 'POST':
+        db_customer.delete_by_id(id)
+        return redirect('/admin/customers') # in future - just reload previous page

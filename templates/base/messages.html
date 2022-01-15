@@ -1,7 +1,9 @@
-<p>
-    {% for error in errors %}
-    <div class="alert alert-primary" role="alert">
-      {{ error }}
-   </div>
+<div class="row justify-content-center">
+  <div class="col-4">
+    {% for message in messages %}
+      <div class="alert alert-primary" role="alert">
+        {{ message }}
+      </div>
     {% endfor%}
-</p>
+  </div>
+</div>

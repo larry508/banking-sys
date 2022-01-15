@@ -31,7 +31,7 @@ def index():
 @login_required
 def home_customer():
     if not registration_completed(get_current_user()):
-        return redirect('/customer/details')
+        return redirect('/self/details')
     context = get_default_context()
     context['customers'] = customer.find_all()
     return render_template('customer/customer_index.html', context=context)

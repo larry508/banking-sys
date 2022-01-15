@@ -1,8 +1,12 @@
 {% extends 'base/base.html' %}
  
 {% block content %}
+
+
+{% include 'base/messages.html'%}
+
  
-<form action="/customer/details" method="POST">
+<form action="/self/details" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <div class="row justify-content-center">
         <h3 class="title">Personal information</h3>

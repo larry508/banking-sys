@@ -63,7 +63,7 @@ def register():
         if db_user.find_by_username(form['username']):
             errors.append(ERRORS['USERNAME_TAKEN'])
 
-        if db_user.find_by_user(form['email']):
+        if db_user.find_by_email(form['email']):
             errors.append(ERRORS['EMAIL_TAKEN'])
 
         if errors:
