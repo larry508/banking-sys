@@ -1,10 +1,11 @@
-from datetime import date
-
+from datetime import date, datetime, timedelta
 import random
+import string
+
 from faker import Faker
 from hashlib import sha256
 
-from common.models import Address, Contact, User, Customer
+from common.models import Address, Contact, User, Customer, AccountType, Account
 from common.app import create_app, db
 from config import DB_URI
 
@@ -13,7 +14,7 @@ sex_dict = {
     1: 'F'
 }
 
-def generate_data(app):
+def generate_customers(app):
     with app.app_context():
         fake = Faker()
         for _ in range(133):
@@ -83,14 +84,89 @@ def generate_data(app):
             db.session.add(new_contact)
             db.session.commit()
 
+def generate_account_types(app):
+    with app.app_context():
+        yng = AccountType(
+            code='YNG',
+            description='For people under 18 years old',
+            interest_rate=float(0.20),
+            monthly_fee=0
+        )
+        db.session.add(yng)
 
+        basic = AccountType(
+            code='BSC',
+            description='Basic account with small fee',
+            interest_rate=float(0),
+            monthly_fee=float(2.59)
+        )
+        db.session.add(basic)
+
+        savings = AccountType(
+            code='SVG',
+            description='Savings account',
+            interest_rate=float(1.98),
+            monthly_fee=0
+        )
+        db.session.add(savings)
+
+        db.session.commit()
+
+
+def generate_accounts(app):
+    account_types_dict = {
+        0: 'BSC',
+        1: 'SVG',
+        2: 'YNG'
+    }   
+
+    with app.app_context():
+        customers = Customer.query.all()
+        fake = Faker()
+        for customer in customers:
+            customer_id = customer.customer_id
+            account_type = 'YNG' if datetime.now() - datetime(customer.birth_date.year, customer.birth_date.month, customer.birth_date.day) < timedelta(weeks=864) else account_types_dict[random.randint(0, 1)]
+            account_number = "".join(random.choice(string.digits) for _ in range(26))
+            balance = float(random.randint(0,10000))
+            opened_date = fake.date_between(User.query.filter_by(user_id=customer.user_id).first().registration_date, date(2022, 1, 7))
+
+            account = Account(
+                customer_id=customer_id,
+                account_type=account_type,
+                account_number=account_number,
+                balance=balance,
+                opened_date=opened_date
+            )
+            db.session.add(account)
+            db.session.commit()
+
+            
 
                 
 
 if __name__ == '__main__':
     app = create_app(DB_URI)
 
-    generate_data(app)
+    print('COMMANDS: ')
+    print('1 - generate 133 users, customers, addresses and contacts (in case of empty db, run it first)')
+    print('2 - generate account for every customer (even if one already exists)')
+    print('3 - generate account types (empty table advised)')
+    print('0 - exit')
+
+    while (cmd := int(input("enter cmd: "))) != 0:
+        print('please stand by...', end='')
+        if cmd == 1:
+            generate_customers(app)
+        if cmd == 2:
+            generate_accounts(app)
+        if cmd == 3:
+            generate_account_types(app)
+        if cmd == 0:
+            break
+
+        print('success.')
+
+
     
 
 

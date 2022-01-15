@@ -1,18 +1,13 @@
-from datetime import date
-from hashlib import sha256
 
-from flask import Blueprint, make_response, redirect, render_template, request
+from flask import Blueprint, redirect, render_template, request
 
 from common.app import db
 from common.db import customer as db_customer
 from common.db import user as db_user
 from common.db import customer_details as db_customer_details
-from common.models import Customer, User
-from common.security import admin_view, verify_user, generate_auth_token, hash_sha256, is_authenticated, login_required
-from utils.string_tables import ERRORS
+from common.security import admin_view
 from utils.default_context import get_default_context
 
-from sqlalchemy import Column, Table
 blueprint = Blueprint('admin', __name__)
 
 
