@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <h1 class='title'>
+        CUSTOMERS
+    </h1>
+    <div class="col-8">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First name</th>
+                <th scope="col">Middle</th>
+                <th scope="col">Last</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Birthdate</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr>
+                    <th scope="row"> {{ customer.customer_id }}</th>
+                    <td>{{ customer.first_name }}</td>
+                    <td>{{ customer.middle_name }}</td>
+                    <td>{{ customer.last_name }}</td>
+                    <td>{{ customer.sex }}</td>
+                    <td>{{ customer.birth_date }}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

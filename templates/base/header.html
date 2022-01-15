@@ -3,14 +3,28 @@
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
           <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
         </a>
+
+        {% if context.is_admin %}
   
-        <ul class="nav nav-pills">
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/index/admin" class="nav-link active" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="/admin/customers" class="nav-link">Customers</a></li>
+            <li class="nav-item"><a href="/admin/accounts" class="nav-link">Accounts</a></li>
+            <li class="nav-item"><a href="/admin/users" class="nav-link">Users</a></li>
+          </ul>
+
+          {% else %}
+
+
+          <ul class="nav nav-pills">
             <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
             <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
             <li class="nav-item"><a href="#" class="nav-link">About</a></li>
           </ul>
+
+          {% endif %}
         <div class="col-md-3 text-end">
             
             {% if context.is_authenticated %}

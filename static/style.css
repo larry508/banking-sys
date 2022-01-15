@@ -1,7 +1,13 @@
 body {
+    margin: 1em;
     background-color: rgb(231, 231, 255);
 }
 
+a {
+    cursor: pointer;
+}
+
 .title {
+    color: rgb(56, 56, 56);
     text-align: center;
 }

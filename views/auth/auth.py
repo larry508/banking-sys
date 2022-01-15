@@ -1,11 +1,11 @@
-from datetime import date
+from datetime import datetime, timezone
 from hashlib import sha256
 
 from flask import Blueprint, make_response, redirect, render_template, request
 
 from common.db import user as db_user
 from common.models import Customer, User
-from common.security import verify_user, generate_auth_token, hash_sha256, is_authenticated, login_required
+from common.security import generate_auth_token, hash_sha256, is_authenticated, verify_user
 from utils.string_tables import ERRORS
 from utils.default_context import get_default_context
 
@@ -31,6 +31,11 @@ def login():
 
         response = make_response(redirect('/'))
         response.set_cookie('auth', generate_auth_token(username, hash_sha256(password)))
+
+        user = db_user.find_by_username(username)
+        user.last_login = datetime.now(timezone.utc)
+        db_user.update(user)
+
         return response
 
     if request.method == 'GET':
@@ -68,7 +73,8 @@ def register():
             user_type='CUSTOMER',
             username=form['username'],
             email=form['email'],
-            password_hash=hash_sha256(form['password'])
+            password_hash=hash_sha256(form['password']),
+            registration_date=datetime.now(timezone.utc)
         )
         db_user.create(user)
         return redirect('/auth/login')

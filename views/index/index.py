@@ -41,8 +41,6 @@ def home_customer():
 @blueprint.route('/index/admin')
 @admin_view
 def home_admin():
-    if not registration_completed(get_current_user()):
-        return redirect('/customer/details')
     context = get_default_context()
     context['customers'] = customer.find_all()
-    return render_template('customer/customer_index.html', context=context)
+    return render_template('admin/home.html', context=context)

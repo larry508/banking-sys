@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <h1 class='title'>
+        USERS
+    </h1>
+    <div class="col-8">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">User type</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Registration date</th>
+                <th scope="col">Last login</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <th scope="row"> {{ user.user_id }}</th>
+                    <td>{{ user.user_type }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.registration_date }}</td>
+                    <td>{{ user.last_login }}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

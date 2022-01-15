@@ -8,3 +8,8 @@ def create(user: User):
     db.session.add(user)
     db.session.commit()
     return user
+
+
+def update(user: User):
+    db.session.commit()
+    return user

@@ -40,7 +40,7 @@ def verify_user(username: str, password: str) -> bool:
 
 
 def verify_user_by_password_hash(username: str, password_hash: str) -> bool:
-    user = User.query.filter_by(username=username).first()
+    user: User = User.query.filter_by(username=username).first()
     if not user:
         return False
     return user.password_hash.lower() == password_hash.lower()
@@ -48,7 +48,7 @@ def verify_user_by_password_hash(username: str, password_hash: str) -> bool:
 def get_current_user() -> User:
     auth_token = request.cookies.get('auth')
     if not auth_token:
-        return False
+        return None
     username, password_hash = get_user_from_token(auth_token)
     return db_user.find_by_username(username)
 
@@ -60,8 +60,9 @@ def is_authenticated() -> bool:
     return verify_user_by_password_hash(username, password_hash)
 
 
-def is_admin(user) -> bool:
-    return user.user_type == 'ADMIN'
+def is_admin(user: User) -> bool:
+    if user:
+        return user.user_type == 'ADMIN'
 
 
 #################################
@@ -84,6 +85,7 @@ def admin_view(f):
         if not is_admin(user):
             return redirect('/')
         return f(*args, **kwargs)
+    inner.__name__ = f.__name__
     return inner
         
         
