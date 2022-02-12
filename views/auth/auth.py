@@ -70,7 +70,7 @@ def register():
             return render_template('auth/register.html', context=get_default_context(), errors=errors)
 
         user = User(
-            user_type='CUSTOMER',
+            user_type='CST',
             username=form['username'],
             email=form['email'],
             password_hash=hash_sha256(form['password']),

@@ -5,10 +5,11 @@ from common.models import Address, Contact, Customer, User
 def get_customer_details_prefill(address: Address, contact: Contact, customer: Customer):
     prefill = {}
     if customer:
+        prefill['customer_id'] = customer.customer_id
         prefill['first_name'] = customer.first_name
         prefill['middle_name'] = customer.middle_name
         prefill['last_name'] = customer.last_name
-        prefill['gender'] = customer.sex
+        prefill['gender'] = customer.gender
         prefill['birth_date'] = customer.birth_date
     if address:
         prefill['country_code'] = address.country_code
@@ -28,7 +29,7 @@ def update_customer_from_form(db, customer, form):
     customer.first_name = form['firstName']
     customer.middle_name = form['middleName']
     customer.last_name = form['lastName']
-    customer.sex = form['gender']
+    customer.gender = form['gender']
     customer.birth_date = form['birthdate']
     db.session.commit()
 

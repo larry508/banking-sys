@@ -44,10 +44,11 @@ def details():
             update_customer_from_form(db, customer, form)
         else:
             customer = Customer(
+                customer_id=form['customerID'],
                 first_name = form['firstName'],
                 middle_name = form['middleName'],
                 last_name = form['lastName'],
-                sex = form['gender'],
+                gender = form['gender'],
                 birth_date = form['birthdate'],
                 user_id = user.user_id
             )
@@ -58,7 +59,6 @@ def details():
             update_address_from_form(db, address, form)
         else:
             address = Address(
-                customer_id = customer.customer_id,
                 country_code = form['countryCode'],
                 city = form['city'],
                 zip_code = form['zipCode'],
@@ -74,11 +74,14 @@ def details():
             update_contact_from_form(db, contact, form)
         else:
             contact = Contact(
-                customer_id = customer.customer_id,
                 email = form['email'],
                 phone_number = form['phoneNumber']
             )
             db_contact.create(contact)
+
+        customer.address_id = address.address_id
+        customer.contact_id = contact.contact_id
+        db.session.commit()
 
         messages.append(MESSAGES['PROFILE_UPDATED'])
 

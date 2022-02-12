@@ -10,7 +10,12 @@
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <div class="row justify-content-center">
         <h3 class="title">Personal information</h3>
-        <div class="col-4">
+        <div class="col-4"> 
+            <div class="mb-3">
+                <label for="customerID" class="form-label">Person ID</label>
+                <input type="text" name="customerID" class="form-control" id="customerID" value="{{ prefill.customer_id }}" required>
+            </div>
+
             <div class="mb-3">
                 <label for="firstName" class="form-label">First name</label>
                 <input type="text" name="firstName" class="form-control" id="firstName" value="{{ prefill.first_name }}" required>
@@ -21,12 +26,15 @@
                 <input type="text" name="middleName" class="form-control" id="middleName" value="{{ prefill.middle_name }}">
             </div>
  
+
+        </div>
+        <div class="col-4">
+
             <div class="mb-3">
                 <label for="lastName" class="form-label">Last name</label>
                 <input type="text" name="lastName" class="form-control" id="lastName" required value="{{ prefill.last_name }}">
             </div>
-        </div>
-        <div class="col-4">
+
             <div class="mb-3">
                 <label for="gender" class="form-label">Gender</label>
                 <select class="form-select" id="gender" name="gender">

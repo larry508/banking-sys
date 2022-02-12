@@ -62,7 +62,7 @@ def is_authenticated() -> bool:
 
 def is_admin(user: User) -> bool:
     if user:
-        return user.user_type == 'ADMIN'
+        return user.user_type == 'ADM'
 
 
 #################################

@@ -15,7 +15,7 @@
                 <th scope="col">First name</th>
                 <th scope="col">Middle</th>
                 <th scope="col">Last</th>
-                <th scope="col">Sex</th>
+                <th scope="col">Gender</th>
                 <th scope="col">Birthdate</th>
             </tr>
             </thead>
@@ -26,7 +26,7 @@
                     <td>{{ customer.first_name }}</td>
                     <td>{{ customer.middle_name }}</td>
                     <td>{{ customer.last_name }}</td>
-                    <td>{{ customer.sex }}</td>
+                    <td>{{ customer.gender }}</td>
                     <td>{{ customer.birth_date }}</td>
                     <td>
                         <form action="/admin/customers/delete/{{ customer.customer_id }}" method="POST">

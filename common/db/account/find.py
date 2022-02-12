@@ -1,5 +1,5 @@
-from common.models import Customer, User
+from common.models import Account
 
 
 def find_all():
-    return Customer.query.all()
+    return Account.query.all()

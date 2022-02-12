@@ -5,11 +5,11 @@ import string
 from faker import Faker
 from hashlib import sha256
 
-from common.models import Address, Contact, User, Customer, AccountType, Account
+from common.models import Address, Contact, User, Customer, AccountType, Account, UserType
 from common.app import create_app, db
 from config import DB_URI
 
-sex_dict = {
+gender_dict = {
     0: 'M',
     1: 'F'
 }
@@ -18,18 +18,20 @@ def generate_customers(app):
     with app.app_context():
         fake = Faker()
         for _ in range(133):
-            sex = sex_dict[random.randint(0, 1)]
-            first_name = fake.first_name_male() if sex == 'M' else fake.first_name_female()
-            middle_name = (fake.first_name_male() if sex == 'M' else fake.first_name_female()) if random.randint(0, 2) == 1 else ""
+            gender = gender_dict[random.randint(0, 1)]
+            customer_id = ""
+            for _ in range(11): customer_id += str(random.randint(0, 9))
+            first_name = fake.first_name_male() if gender == 'M' else fake.first_name_female()
+            middle_name = (fake.first_name_male() if gender == 'M' else fake.first_name_female()) if random.randint(0, 2) == 1 else ""
             last_name = fake.last_name()
             birth_date = fake.date_between(date(1960, 1, 1), date(2006, 1,1))
 
-            user_type = "ADMIN" if random.randint(1, 10) == 1 else "CUSTOMER"
+            user_type = "ADM" if random.randint(1, 10) == 1 else "CST"
             username = fake.user_name()
             email = fake.email()
             password_hash = sha256(fake.password().encode('utf-8')).hexdigest()
             register_date = fake.date_between(date(2010, 1, 1), datetime.now().date())
-            last_login = fake.date_between(register_date, date(2022, 1, 7))
+            last_login = fake.date_between(register_date, datetime.now().date())
 
             contact_email = fake.email()
             phone_number = str(random.randint(300, 700)) + '-' + str(random.randint(200, 800)) + '-' + str(random.randint(100, 800))
@@ -54,10 +56,11 @@ def generate_customers(app):
 
 
             new_customer = Customer(
+                customer_id=customer_id,
                 first_name=first_name,
                 middle_name=middle_name,
                 last_name=last_name,
-                sex=sex,
+                gender=gender,
                 birth_date=birth_date,
                 user_id=new_user.user_id
             )
@@ -65,7 +68,6 @@ def generate_customers(app):
             db.session.commit()
 
             new_address = Address(
-                customer_id=new_customer.customer_id,
                 country_code=country_code,
                 city=city,
                 zip_code=zip_code,
@@ -75,7 +77,6 @@ def generate_customers(app):
             )
 
             new_contact = Contact(
-                customer_id=new_customer.customer_id,
                 email=contact_email,
                 phone_number=phone_number
             )
@@ -110,6 +111,15 @@ def generate_account_types(app):
         )
         db.session.add(savings)
 
+        db.session.commit()
+
+
+def generate_user_types(app):
+    with app.app_context():
+        customer = UserType(code='CST', description='Customer')
+        admin = UserType(code='ADM', description='admin')
+        db.session.add(customer)
+        db.session.add(admin)
         db.session.commit()
 
 
@@ -151,6 +161,7 @@ if __name__ == '__main__':
     print('1 - generate 133 users, customers, addresses and contacts (in case of empty db, run it first)')
     print('2 - generate account for every customer (even if one already exists)')
     print('3 - generate account types (empty table advised)')
+    print('4 - generate user types (empty table advised)')
     print('0 - exit')
 
     while (cmd := int(input("enter cmd: "))) != 0:
@@ -161,6 +172,8 @@ if __name__ == '__main__':
             generate_accounts(app)
         if cmd == 3:
             generate_account_types(app)
+        if cmd == 4:
+            generate_user_types(app)
         if cmd == 0:
             break
 
