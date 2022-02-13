@@ -26,12 +26,11 @@ class CustomerDetails(db.Model):
 class CustomerAccount(db.Model):
     __tablename__ = 'CustomerAccounts'
 
+    account_number = Column("AccountNumber", String(30), nullable=False, primary_key=True)
     customer_id = Column("CustomerID", String(13))
     first_name = Column("FirstName", String(35), nullable=False)
     last_name = Column("LastName", String(35), nullable=False)
-    account_id = Column("AccountID", Integer, primary_key=True)
     account_type = Column("AccountType", String(3), nullable=False)
-    account_number = Column("AccountNumber", String(30), nullable=False)
     balance = Column("Balance", Numeric, nullable=False)
     opened_date = Column("OpenedDate", Date, nullable=False)
     
